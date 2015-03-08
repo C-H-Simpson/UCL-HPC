@@ -27,7 +27,7 @@ How to run stuff on the Legion server at UCL
 
 ####5. Confure the cmake compiler:
 
-	ccmake ../EnergyPlus
+	ccmake ../EnergyPlus<Version>Build
  
   - Press *c* to configure
   - Change Build Type -> *Release*
@@ -51,13 +51,14 @@ How to run stuff on the Legion server at UCL
 	git clone https://github.com/phy6phs/Legion
 	cp Legion/EnergyPlus_Installation_Files/EnergyPlus<Version>Build/bin
 	
-- and add some weather files
+	#and add some weather files:
 	
 	mkdir EnergyPlus<Version>Build/EnergyPlus-8-2-3 
 	mkdir EnergyPlus<Version>Build/EnergyPlus-8-2-3/WeatherData
 	cp -r Legion/EnergyPlus_Installation_Files/EnergyPlus-8-2-3/WeatherData/* EnergyPlus<Version>Build/EnergyPlus-8-2-3/WeatherData
 	
-####8. In order to run the *runenergyplus* command you will nedd to add the bin folder to the $PATH variable:
+	
+####8. In order to run the *runenergyplus* command you will need to add the bin folder to the $PATH variable:
 	
 	export PATH 
 	PATH=$PATH:<path_to_bin_directory>
@@ -70,4 +71,7 @@ How to run stuff on the Legion server at UCL
 	
 ####10. Or, if you have lots of idfs that need running you can put them all in the same directory and run one of the scripts in the scripts directory (currently only series script):
   - series_script.sh : for running energyplus on all the files in a folder in series
+  - to run you will have to edit it so that it points to the right directory working directory (WORK_DIR):
+  
+	qsub series_script.sh  	
  
