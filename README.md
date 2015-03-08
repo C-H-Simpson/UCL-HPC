@@ -1,20 +1,29 @@
 # Setting up EnergyPlus on Legion
-==============
-How to run stuff on the Legion server at UCL
 
-- 1. First you need to make sure the correct compilers are loaded. For EnergyPlus you will need:
+How to run stuff on the Legion server at UCL
+--------------
+
+1. First you need to make sure the correct compilers are loaded. For EnergyPlus you will need:
+--------------
+
 	module load cmake/2.8.10.2
 	module load compilers/gnu/4.9.2
 
-- 2. To get the EnergyPlus source code off GitHub you will need to:
+2. To get the EnergyPlus source code off GitHub you will need to:
+--------------
+
 	export GIT_SSL_NO_VERIFY=true
 	git clone https://github.com/NREL/EnergyPlus
 	cd EnergyPlus
 	
-- 3. Checkout the version of EnergyPlus you need e.g.:
+3. Checkout the version of EnergyPlus you need e.g.:
+--------------
+
 	git checkout tags/v8.2.6-3
 	
-- 4. You will need to create the directory where the code is built:
+# 4. You will need to create the directory where the code is built:
+
+
 	mkdir ../EnergyPlus*<Version>*Build      
 - where *<Version>* put in the version number
 
