@@ -73,5 +73,5 @@ How to run stuff on the Legion server at UCL
   - series_script.sh : for running energyplus on all the files in a folder in series
   - to run you will have to edit it so that it points to the right directory working directory (WORK_DIR):
   
-	qsub series_script.sh  	
+  	qsub series_script.sh  	
  
