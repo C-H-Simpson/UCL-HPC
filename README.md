@@ -24,7 +24,7 @@ How to run stuff on the Legion server at UCL
 	mkdir ../EnergyPlus_82_Build
 	cd ../EnergyPlus_82_Build    
   
-  - where you can replace "82" with a different *<Version>* if desired
+  - where you can replace "82" with a different *Version* if desired
 
 ####5. Confure the cmake compiler in the build directory:
 
@@ -78,6 +78,6 @@ How to run stuff on the Legion server at UCL
 ####10. Or, if you have lots of idfs that need running you can put them all in the same directory and run one of the scripts in the scripts directory (currently only series script):
   - series_script.sh : for running energyplus on all the files in a folder in series
   - to run you will have to edit it so that it points to the right directory working directory (WORK_DIR):
-  
-  	qsub series_script.sh  	
+  	
+	qsub series_script.sh  	
  
