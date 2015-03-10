@@ -5,7 +5,7 @@ How to run stuff on the Legion server at UCL
 
 ####1. First you need to make sure the correct compilers are loaded. For EnergyPlus you will need:
 
-	module load cmake/2.8.10.2
+	module load cmake/2.8.3
 	module load compilers/gnu/4.9.2
 
 ####2. To get the EnergyPlus source code off GitHub you will need to:
