@@ -11,6 +11,9 @@ How to run stuff on the Legion server at UCL
 ####2. To get the EnergyPlus source code off GitHub you will need to:
 
 	export GIT_SSL_NO_VERIFY=true
+	#make a software directory where your softwaer will be stored
+	mkdir Software
+	cd Software
 	git clone https://github.com/NREL/EnergyPlus
 	cd EnergyPlus
 	
