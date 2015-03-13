@@ -1,0 +1,65 @@
+##Make sure you have the correct modules loaded
+
+mkdir python_stuff
+cd python_stuff
+
+##export the ATLAS stuff
+export ATLAS=/shared/ucl/apps/atlas-3.10.1-gcc4.6.3/lib/libsatlas.so
+export LAPACK=/shared/ucl/apps/atlas-3.10.1-gcc4.6.3/lib/libsatlas.so
+export BLAS=/shared/ucl/apps/atlas-3.10.1-gcc4.6.3/lib/libsatlas.so
+
+##get numpy
+wget http://downloads.sourceforge.net/project/numpy/NumPy/1.9.2/numpy-1.9.2.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fnumpy%2F&ts=1425493784&use_mirror=garr
+tar -xvf numpy-1.9.2.tar.gz
+cd numpy-1.9.2
+python3 setup.py install --user
+cd ..
+
+##get scipy
+wget http://sourceforge.net/projects/scipy/files/scipy/0.15.1/scipy-0.15.1.tar.gz/download
+tar -xvf scipy-0.15.1.tar.gz/
+cd scipy-0.15.1
+python3 setup.py install --user
+cd ..
+
+##before pandas you need cython
+wget http://cython.org/release/Cython-0.22.tar.gz
+tar -xvf Cython-0.22.tar.gz
+cd Cython-0.22.tar.gz 
+python3 setup.py install --user
+cd ..
+
+##get pandas
+wget --no-check-certificate https://pypi.python.org/packages/source/p/pandas/pandas-0.13.1.tar.gz#md5=066ed95adc940cb7f1d5ec6e019c468b
+tar -xvf pandas-0.13.1.tar.gz
+cd pandas-0.13.1
+python3 setup.py install --user
+cd ..
+
+##matplotlib
+wget https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.3.1/matplotlib-1.3.1.tar.gz
+tar -xvf matplotlib-1.3.1.tar.gz 
+cd matplotlib-1.3.1
+python3 setup.py install --user
+cd ..
+
+wget --no-check-certificate https://pypi.python.org/packages/source/e/ephem/ephem-3.7.5.3.tar.gz#md5=0e33905844e3be5c901c13e5a9c938a3
+tar -xvf ephem-3.7.5.3.tar.gz 
+cd ephem-3.7.5.3
+python3 setup.py install --user
+cd ..
+
+##minuit2
+wget http://root.cern.ch/download/root_v5.34.26.source.tar.gz
+tar -xvf root_v5.34.26.source.tar.gz
+cd root
+./configure --prefix=/home/ucqbpsy/Software/Python/root-build/ --enable-minuit2 --enable-python
+make -j 8
+make install -j 8
+cd ..
+source root-build/bin/thisroot.sh 
+
+svn checkout http://pyminuit2.googlecode.com/svn/trunk/ pyminuit2-read-only
+cd pyminuit2-read-only
+##You will then need to get my versions of minuit.cpp and setup.py. else it wont work
+python3 setup.py install --user
