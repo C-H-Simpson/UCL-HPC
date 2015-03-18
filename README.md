@@ -5,13 +5,13 @@ How to run stuff on the Legion server at UCL
 
 ####1. First you need to make sure the correct compilers are loaded. For EnergyPlus you will need:
 
-	module load cmake/2.8.3
+	module load cmake/2.8.10.2
 	module load compilers/gnu/4.9.2
 
 ####2. To get the EnergyPlus source code off GitHub you will need to:
 
 	export GIT_SSL_NO_VERIFY=true
-	#make a software directory where your softwaer will be stored
+	#make a software directory where your software will be stored
 	mkdir Software
 	cd Software
 	git clone https://github.com/NREL/EnergyPlus
@@ -19,8 +19,8 @@ How to run stuff on the Legion server at UCL
 	
 ####3. Checkout the version of EnergyPlus you need e.g.:
 
-
-	git checkout tags/v8.2.6-3
+	git checkout tags/v8.2.0-Update-1.2
+	#You can do: git tag -l to show what versions are available
 	
 ####4. You will need to create the directory where the code is built:
 
@@ -34,8 +34,12 @@ How to run stuff on the Legion server at UCL
 	ccmake ../EnergyPlus
  
   - Press *c* to configure
+  - Turn on BUILD_FORTRAN
+  - Turn on BUILD_PACKAGE
   - Change Build Type -> *Release*
   - Change path -> *build path* created in step 4
+  - Press *c* to re-configure
+  - An extra option should appear EPLUS_BUILDSUPPORT_REPO (leave this as it is)
   - Press *c* to re-configure
   - Press *g* to generate the makefile
 
@@ -46,24 +50,26 @@ How to run stuff on the Legion server at UCL
   - where *N* is the number of cores to use e.g. 8
   - Wait ~15 mins
 
-####7. You will now need some of the add on files (auxilary EnergyPlus stuff)
+####7. You will now need some files to the bin folder
 
 	mkdir bin
 	cp Products/* bin
 	cp Energy+.idd bin
-	cd ..
-	git clone https://github.com/phy6phs/Legion
-	cp Legion/EnergyPlus_Installation_Files/Products/* EnergyPlus_82_Build/bin
+	cp scripts/runenergyplus bin
+	
+	#Copy over any other .idds you need e.g.
+	cp ../EnergyPlus/idd/SlabGHT.idd bin
 	
 	#and add some weather files:
 	
-	mkdir EnergyPlus_82_Build/EnergyPlus-8-2-3 
-	mkdir EnergyPlus_82_Build/EnergyPlus-8-2-3/WeatherData
-	cp -r Legion/EnergyPlus_Installation_Files/EnergyPlus-8-2-3/WeatherData/* EnergyPlus_82_Build/EnergyPlus-8-2-3/WeatherData
+	mkdir EnergyPlus-8-2-0 
+	mkdir EnergyPlus-8-2-0/WeatherData
+	cp ../EnergyPlus/weather/* EnergyPlus-8-2-0/WeatherData
 	
 	
-####8. In order to run the *runenergyplus* command you will need to add the path to the bin directory to the $PATH variable:
+####8. In order to run the *runenergyplus* command you will need to make it an executable and add the path to the bin directory to the $PATH variable:
 	
+	chmod u+x bin/runenergyplus
 	export PATH 
 	PATH=$PATH:<path_to_bin_directory>
 
@@ -76,7 +82,7 @@ How to run stuff on the Legion server at UCL
 	mkdir Simulations/test
 	cd Simulations/test
 	cp ~/Software/EnergyPlus/test/1ZoneUncontrolled.idf ./
-	runenergyplus 1ZoneUncontrolled.idf cntr_Islington_DSY
+	runenergyplus 1ZoneUncontrolled.idf USA_AZ_Phoenix_TMY2
 	
 ####10. Or, if you have lots of idfs that need running you can put them all in the same directory and run one of the scripts in the scripts directory (currently only series script):
   - series_script.sh : for running energyplus on all the files in a folder in series
