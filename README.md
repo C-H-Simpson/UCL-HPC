@@ -81,12 +81,13 @@ How to run stuff on the Legion server at UCL
 	mkdir Simulations
 	mkdir Simulations/test
 	cd Simulations/test
-	cp ~/Software/EnergyPlus/test/1ZoneUncontrolled.idf ./
+	cp ~/Software/EnergyPlus/testfiles/1ZoneUncontrolled.idf ./
 	runenergyplus 1ZoneUncontrolled.idf USA_AZ_Phoenix_TMY2
 	
 ####10. Or, if you have lots of idfs that need running you can put them all in the same directory and run one of the scripts in the scripts directory (currently only series script):
-  - series_script.sh : for running energyplus on all the files in a folder in series
-  - to run you will have to edit it so that it points to the right directory working directory (WORK_DIR):
+- series_script.sh : for running energyplus on all the files in a folder in series
+- to run you will have to edit it so that it points to the right directory working directory (WORK_DIR)
+- Then in the working directory you do:
   	
 	qsub series_script.sh  	
  

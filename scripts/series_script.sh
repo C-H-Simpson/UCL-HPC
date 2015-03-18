@@ -1,14 +1,15 @@
 #!/bin/bash -l
 
-WORK_DIR=/home/ucqbpsy/Scratch/Simulations/test/
+
 
 #$ -S /bin/bash
 #$ -l h_rt=4:0:0
 #$ -l mem=1G
 #$ -l tmpfs=15G
 #$ -N test1
-#$ -wd $WORK_DIR
+#$ -wd /home/ucqbpsy/Scratch/Simulations/test/
 
+WORK_DIR=/home/ucqbpsy/Scratch/Simulations/test/
 OUT_DIR=Output/
 array=(eso audit bnd svg eio mtd dxf mdd [9]=shd)
 
