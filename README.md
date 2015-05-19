@@ -3,6 +3,34 @@
 How to run stuff on the Legion server at UCL
 --------------
 
+The easy way is you use a pre built Red Hat Enterprise Linux version (only comes in version 8.1)
+--------------
+
+####1. Once logged onto Legion and in a suitable directory get the pre-built software:
+
+	wget http://developer.nrel.gov/downloads/buildings/energyplus/builds/SetEPlusV810009-lin-RHEL5.tar.gz
+
+####2. Then you can extract it:
+
+	tar -xvf SetEPlusV810009-lin-RHEL5.tar.gz
+	
+####3. Then you just need to make sure the files are in the correct directories:
+
+	mkdir bin
+	mv ./* bin
+	mkdir EnergyPlus-8-1-0/
+	mv bin/WeatherData/ EnergyPlus-8-1-0/
+
+####4. Then just set the path to the director in the PATH variable (also add tyhis line to your ~/.bash_profile file)
+	
+	PATH=$PATH:/home/<your_login_name>/<path_to_where_you installed EnergyPlus>/bin/
+
+####5. You can then to try and run tests or scripts (see 9 and 10 below)
+	
+
+If you need a specific version of EnergyPlus you need to install from source (Not trivial)
+--------------
+
 ####1. First you need to make sure the correct compilers are loaded. For EnergyPlus you will need:
 
 	module load cmake/2.8.10.2
