@@ -14,8 +14,6 @@ OUT_DIR=Output/
 array=(eso audit bnd svg eio mtd dxf mdd [9]=shd)
 
 cd $TMPDIR
-module unload compilers/gnu/4.6.3
-module load compilers/gnu/4.9.2
 
 for i in $(ls $WORK_DIR*.idf); do
 	runenergyplus $i cntr_Islington_DSY
