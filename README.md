@@ -1,35 +1,68 @@
-# Setting up EnergyPlus on Legion
+# Setting up EnergyPlus on UCL's MYRIAD (HPC)
 
-How to run stuff on the Legion server at UCL
+How to run stuff on the MYRIAD server at UCL
 --------------
 
-The easy way is you use a pre built Red Hat Enterprise Linux version (only comes in version 8.1)
+Installing a pre-built Linux version of Energplus
 --------------
 
-####1. Once logged onto Legion and in a suitable directory get the pre-built software:
-
-	wget http://developer.nrel.gov/downloads/buildings/energyplus/builds/SetEPlusV810009-lin-RHEL5.tar.gz
-
-####2. Then you can extract it:
-
-	tar -xvf SetEPlusV810009-lin-RHEL5.tar.gz
+####1. Once logged onto MYRIAD (see https://www.rc.ucl.ac.uk/docs/Clusters/Grace/) move to a suitable directory, e.g:
 	
-####3. Then you just need to make sure the files are in the correct directories:
-
-	mkdir bin
-	mv ./* bin
-	mkdir EnergyPlus-8-1-0/
-	mv bin/WeatherData/ EnergyPlus-8-1-0/
-
-####4. Then just set the path to the director in the PATH variable (also add tyhis line to your ~/.bash_profile file)
+	cd Software/
+	mkdir EnergyPlus_v9.4
+	cd EnergyPlus_v9.4
 	
+####2. Get the required version from the E+ website (https://energyplus.net/downloads), e.g for version 9.4:
+
+	wget https://github.com/NREL/EnergyPlus/releases/download/v9.4.0/EnergyPlus-9.4.0-998c4b761e-Linux-Ubuntu18.04-x86_64.sh
+
+####3. You can then follow the Linux istallation instructions (https://energyplus.net/installation-linux), but without admistrator privileges:
+
+	chmod +x EnergyPlus-9.4.0-998c4b761e-Linux-Ubuntu18.04-x86_64.sh
+	./EnergyPlus-9.4.0-998c4b761e-Linux-Ubuntu18.04-x86_64.sh
+	
+####4. When asked (enter 'y'): 
+	
+	Do you accept the license? [y/\033[1;31mN\033[0m]: 
+	y
+	
+####5. Choose a suitible directories when asked,:
+	
+	EnergyPlus install directory [/usr/local/EnergyPlus-9-4-0]:
+	EnergyPlus-940
+	
+	Symbolic link location (enter \033[1;31m"n"\033[0m for no links) [/usr/local/bin]:
+	EnergyPlus-940
+
+####6. Then just set the path to the installation folder to the director in the PATH variable (also add this line to your ~/.bash_profile file):
+	
+	export PATH
 	PATH=$PATH:/home/<your_login_name>/<path_to_where_you installed EnergyPlus>/bin/
 
-####5. You can then to try and run tests or scripts (see 9 and 10 below)
+--------------
+
+Running EnergPlus Simulations on MYRIAD in parrallel
+--------------
+
+####1. Copy your idf files from a local directory onto MYRIAD into a suitable folder:
+
+	
+####2. Set up the script...
+	
 	
 
-If you need a specific version of EnergyPlus you need to install from source (Not trivial)
---------------
+####3. Set up the script...
+  	
+	qsub series_script.sh  	
+	
+####4. Check that the script is running (lots more detail/commands here: https://www.rc.ucl.ac.uk/docs/howto/): 
+  	
+	qstat series_script.sh  	
+	
+-----------------------------------------------------------------------
+
+Compiling EnergyPlus from source (Not trivial & not updated since 2016)
+-----------------------------------------------------------------------
 
 ####1. First you need to make sure the correct compilers are loaded. For EnergyPlus you will need:
 
@@ -93,29 +126,4 @@ If you need a specific version of EnergyPlus you need to install from source (No
 	mkdir EnergyPlus-8-2-0 
 	mkdir EnergyPlus-8-2-0/WeatherData
 	cp ../EnergyPlus/weather/* EnergyPlus-8-2-0/WeatherData
-	
-	
-####8. In order to run the *runenergyplus* command you will need to make it an executable and add the path to the bin directory to the $PATH variable:
-	
-	chmod u+x bin/runenergyplus
-	export PATH 
-	PATH=$PATH:<path_to_bin_directory>
 
-  - the above two lines should also be added to your .bash_profile file so that you don't have to do this each time you log in
-
-####9. You can then try some test runs using .idf file from EnergyPlus/test
-	
-	cd
-	mkdir Simulations
-	mkdir Simulations/test
-	cd Simulations/test
-	cp ~/Software/EnergyPlus/testfiles/1ZoneUncontrolled.idf ./
-	runenergyplus 1ZoneUncontrolled.idf USA_AZ_Phoenix_TMY2
-	
-####10. Or, if you have lots of idfs that need running you can put them all in the same directory and run one of the scripts in the scripts directory (currently only series script):
-- series_script.sh : for running energyplus on all the files in a folder in series
-- to run you will have to edit it so that it points to the right directory working directory (WORK_DIR)
-- Then in the working directory you do:
-  	
-	qsub series_script.sh  	
- 
