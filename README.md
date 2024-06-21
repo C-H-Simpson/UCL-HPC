@@ -72,8 +72,13 @@ Compiling EnergyPlus from source (Not trivial & not updated since 2016)
 
 #### 1. First you need to make sure the correct compilers are loaded. For EnergyPlus you will need:
 
-	module load cmake/2.8.10.2
-	module load compilers/gnu/4.9.2
+	module unload compilers
+ 	module unload gcc-libs
+   	module load compilers/gnu/7.3.0
+    	module load gcc-libs/7.3.0
+     	module load cmake/3.27.3
+
+We have found that for EnergyPlus v9.4, the gnu compilers version 7.3.0 works, but versions 4.9.2 and 10.2.0 do not.  
 
 #### 2. To get the EnergyPlus source code off GitHub you will need to:
 
